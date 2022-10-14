@@ -2,6 +2,7 @@ import TodoItem from "@my-todo-app/shared"
 import { connect, model, Schema } from "mongoose"
 
 const ToDoSchema = new Schema({
+    name: String,
     text: String,
     timeStamp: Date
 });
