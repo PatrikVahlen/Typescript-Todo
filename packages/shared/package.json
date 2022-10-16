@@ -1,8 +1,8 @@
 {
-  "name": "@my-todo-app/shared",
+  "name": "@my-chat-app/shared",
   "version": "1.0.0",
   "description": "",
-  "main": "src/todo-item.ts",
+  "main": "src/chat-item.ts",
   "scripts": {
     "build": "tsc"
   },
