@@ -1,17 +1,17 @@
 import ChatItem from "@my-todo-app/shared";
 import express, { Router, Request, Response } from "express";
-import { loadItemById, loadTodos, saveTodo } from "../services/todo-services";
+import { loadItemById, loadChats, saveChat } from "../services/todo-services";
 
 
 const todosController = express.Router()
 
 todosController.get('/', async (req: Request, res: Response<ChatItem[]>) => {
-    res.send(await loadTodos());
+    res.send(await loadChats());
 });
 
-todosController.get('/:todoId', async (req: Request, res: Response<ChatItem>) => {
+todosController.get('/:chatId', async (req: Request, res: Response<ChatItem>) => {
     try {
-        res.send(await loadItemById(req.params.todoId));
+        res.send(await loadItemById(req.params.chatId));
     } catch (e) {
         res.sendStatus(404)
     }
@@ -20,7 +20,7 @@ todosController.get('/:todoId', async (req: Request, res: Response<ChatItem>) =>
 
 todosController.post('/', async (req: Request<ChatItem>, res: Response<ChatItem[]>) => {
     try {
-        res.send(await saveTodo(req.body))
+        res.send(await saveChat(req.body))
     } catch (e) {
         res.sendStatus(400)
     }
