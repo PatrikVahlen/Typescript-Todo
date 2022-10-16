@@ -1,34 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import TodoItem from "@my-todo-app/shared"
+import ChatItem from "@my-todo-app/shared"
 import './App.css';
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_TODO_API || "http://localhost:3001"
 
-const fetchTodos = async (): Promise<TodoItem[]> => {
-  const response = await axios.get<TodoItem[]>("/todos")
+const fetchTodos = async (): Promise<ChatItem[]> => {
+  const response = await axios.get<ChatItem[]>("/todos")
   return response.data
 }
 
 function App() {
-  const [todoText, setTodoText] = useState<string>('');
+  const [chatText, setChatText] = useState<string>('');
   const [userName, setUserName] = useState<string>('');
-  const [todos, setTodos] = useState<TodoItem[]>([]);
+  const [chats, setChats] = useState<ChatItem[]>([]);
   const [error, setError] = useState<string | undefined>();
 
-  const createTodo = async (userName: string, todoText: string): Promise<void> => {
-    const todoItem: TodoItem = {
+  const createTodo = async (userName: string, chatText: string): Promise<void> => {
+    const chatItem: ChatItem = {
       name: userName,
-      text: todoText,
+      text: chatText,
       timeStamp: new Date()
     }
     try {
-      const response = await axios.post<TodoItem[]>('/todos', todoItem)
-      setTodos(response.data)
-      setTodoText("")
+      const response = await axios.post<ChatItem[]>('/todos', chatItem)
+      setChats(response.data)
+      setChatText("")
       setUserName("")
     } catch (err) {
-      setTodos([])
+      setChats([])
       setError('Something went wrong when fetching posts...')
     }
   }
@@ -36,9 +36,9 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchTodos()
-        .then(setTodos)
+        .then(setChats)
         .catch((error) => {
-          setTodos([])
+          setChats([])
           setError('Something went wrong when fetching posts...')
         });
     }, 2500)
@@ -49,13 +49,15 @@ function App() {
   const output = () => {
     if (error) {
       return (<div>{error}</div>)
-    } else if (todos) {
+    } else if (chats) {
       return (<div>{
-        todos.map((item) => {
+        chats.map((item) => {
+          let truncatedDate = item.timeStamp.toString().split("T");
+          let truncatedTime = truncatedDate[1].split(".");
           return (
             <div>
               <p key={item.id}>{item.text}</p>
-              <p key={item.id}>{item.timeStamp.toString()}</p>
+              <p key={item.id}>{truncatedDate[0]} {truncatedTime[0]}</p>
               <p key={item.id}>{item.name}</p>
             </div>)
         })
@@ -80,11 +82,11 @@ function App() {
           <br></br>
           <input
             type="text"
-            value={todoText}
-            onChange={(e) => setTodoText(e.target.value)}
+            value={chatText}
+            onChange={(e) => setChatText(e.target.value)}
             required />
 
-          <button onClick={(e) => createTodo(userName, todoText)}>Send</button>
+          <button onClick={(e) => createTodo(userName, chatText)}>Send</button>
         </section>
       </header>
     </div >
