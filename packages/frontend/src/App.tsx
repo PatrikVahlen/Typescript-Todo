@@ -6,7 +6,7 @@ import axios from 'axios';
 axios.defaults.baseURL = process.env.REACT_APP_TODO_API || "http://localhost:3001"
 
 const fetchTodos = async (): Promise<ChatItem[]> => {
-  const response = await axios.get<ChatItem[]>("/todos")
+  const response = await axios.get<ChatItem[]>("/chat")
   return response.data
 }
 
@@ -23,7 +23,7 @@ function App() {
       timeStamp: new Date()
     }
     try {
-      const response = await axios.post<ChatItem[]>('/todos', chatItem)
+      const response = await axios.post<ChatItem[]>('/chat', chatItem)
       setChats(response.data)
       setChatText("")
       setUserName("")
