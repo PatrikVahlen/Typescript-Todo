@@ -2,14 +2,89 @@
   text-align: center;
 }
 
-.App-header {
+.chat-header {
   background-color: #365da9;
+  color: white;
+  padding: 5px;
+}
+
+.chat-section {
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  margin-left: 5%;
+  margin-right: 50%;
 }
 
+.chatCard {
+  border: 2px solid #365da9;
+  background-color: #365da9;
+  color: white;
+  border-radius: 50px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.chatTimeStampText{
+  font-size: 40%;
+  color: grey;
+}
+
+.chatMessageText {
+  font-size: 70%;
+}
+
+.chatNameText {
+  display: flex;
+  color: white;
+  justify-content: right;
+  margin-right: 10%;
+  font-size: 70%;
+}
+
+.chat-footer {
+  display: flex;
+  /* border-top-style: solid;
+  border-top-color: #365da9; */
+  padding: 50px;
+  justify-content: right;
+  margin-top: 20px;
+  margin-left: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+/* .chatFrame {
+  border: 2px solid #365da9;
+  border-radius: 10px;
+} */
+
+.chatInput {
+  border: none;
+  box-shadow: 0 0 10px #365da9;
+  border-radius: 2px;
+  margin-top: 10px;
+  
+}
+
+.chatInput:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px #365da9;
+  
+}
+
+.buttonBox{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sendButton {
+  margin: 10px;
+}

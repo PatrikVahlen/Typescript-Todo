@@ -5,7 +5,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_TODO_API || "http://localhost:3001"
 
-const fetchTodos = async (): Promise<ChatItem[]> => {
+const fetchChats = async (): Promise<ChatItem[]> => {
   const response = await axios.get<ChatItem[]>("/chat")
   return response.data
 }
@@ -16,7 +16,7 @@ function App() {
   const [chats, setChats] = useState<ChatItem[]>([]);
   const [error, setError] = useState<string | undefined>();
 
-  const createTodo = async (userName: string, chatText: string): Promise<void> => {
+  const createChatMessage = async (userName: string, chatText: string): Promise<void> => {
     const chatItem: ChatItem = {
       name: userName,
       text: chatText,
@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      fetchTodos()
+      fetchChats()
         .then(setChats)
         .catch((error) => {
           setChats([])
@@ -56,10 +56,19 @@ function App() {
           let truncatedTime = truncatedDate[1].split(".");
           return (
             <div>
-              <p key={item.id}>{item.text}</p>
-              <p key={item.id}>{truncatedDate[0]} {truncatedTime[0]}</p>
-              <p key={item.id}>{item.name}</p>
-            </div>)
+              <div className='chatTimeStampText'>
+                <p key={item.id}>{truncatedDate[0]} {truncatedTime[0]}</p>
+              </div>
+              <div className='chatCard'>
+                <div className='chatMessageText'>
+                  <p key={item.id}>{item.text}</p>
+                </div>
+                <div className='chatNameText'>
+                  <p key={item.id}>{item.name}</p>
+                </div>
+              </div>
+            </div>
+          )
         })
       }</div>)
     } else {
@@ -69,26 +78,40 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        {/* {todo ? todo.text : error ? error : "Waiting for todos.."} */}
-        {output()}
-        <section>
-          <input
-            type="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            required />
-
-          <br></br>
-          <input
-            type="text"
-            value={chatText}
-            onChange={(e) => setChatText(e.target.value)}
-            required />
-
-          <button onClick={(e) => createTodo(userName, chatText)}>Send</button>
-        </section>
+      <header>
+        <div className='chat-header'>
+          <h2>Chat-App</h2>
+        </div>
       </header>
+      <section className="chat-section">
+        {output()}
+      </section>
+      <footer className='chat-footer'>
+        <div className="chatFrame">
+          <div>
+            <label>Name: </label>
+            <input
+              className='chatInput'
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              required />
+          </div>
+          <div>
+            <label>Message: </label>
+            <input
+              className='chatInput'
+              type="text"
+              value={chatText}
+              onChange={(e) => setChatText(e.target.value)}
+              required />
+          </div>
+          <div className='buttonBox'>
+            <button className="sendButton" onClick={(e) => createChatMessage(userName, chatText)}>Send</button>
+          </div>
+        </div>
+      </footer>
+
     </div >
   );
 }
