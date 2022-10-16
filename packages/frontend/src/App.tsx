@@ -91,6 +91,7 @@ function App() {
           <div>
             <label>Name: </label>
             <input
+              placeholder='Enter your name'
               className='chatInput'
               type="text"
               value={userName}
@@ -100,6 +101,7 @@ function App() {
           <div>
             <label>Message: </label>
             <input
+              placeholder='Ener your message'
               className='chatInput'
               type="text"
               value={chatText}
