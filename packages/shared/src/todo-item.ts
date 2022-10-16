@@ -1,4 +1,4 @@
-export default interface TodoItem {
+export default interface ChatItem {
     id?: string,
     name: string,
     text: string,
