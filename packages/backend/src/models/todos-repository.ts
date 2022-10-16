@@ -13,7 +13,7 @@ export const setupMongoDB = async (url: string) => {
     await connect(url)
 };
 
-export const loadAllTodoItems = async (): Promise<ChatItem[]> => {
+export const loadAllChatItems = async (): Promise<ChatItem[]> => {
     return TodoModel.find({}).exec()
 }
 
@@ -21,7 +21,7 @@ export const loadTodoItem = async (todoId: string): Promise<ChatItem | null> => 
     return TodoModel.findById(todoId).exec()
 }
 
-export const saveTodoItem = async (todoItem: ChatItem): Promise<void> => {
+export const saveChatItem = async (todoItem: ChatItem): Promise<void> => {
     const newModel = new TodoModel(todoItem)
     newModel.save()
 }
