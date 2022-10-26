@@ -10,14 +10,15 @@
 
 .chat-section {
   background-color: white;
-  min-height: 100vh;
+  min-height: 100%;
+  min-width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  margin-left: 5%;
-  margin-right: 50%;
+  /* margin-left: 5%;
+  margin-right: 50%; */
 }
 
 .chatCard {
@@ -40,16 +41,14 @@
 
 .chatNameText {
   display: flex;
-  color: white;
+  color: grey;
   justify-content: right;
   margin-right: 10%;
   font-size: 70%;
 }
 
-.chat-footer {
+/* .chat-footer {
   display: flex;
-  /* border-top-style: solid;
-  border-top-color: #365da9; */
   padding: 50px;
   justify-content: right;
   margin-top: 20px;
@@ -60,7 +59,7 @@
   right: 0;
   height: 15%;
   padding: 10%;
-}
+} */
 
 .chatFrame {
   border: 2px solid #365da9;
