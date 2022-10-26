@@ -15,8 +15,13 @@ export default function ChatApp() {
 
     const [chatText, setChatText] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
+    const [session, setSession] = useState<boolean>(true);
     const [chats, setChats] = useState<ChatItem[]>([]);
     const [error, setError] = useState<string | undefined>();
+
+    function logOut() {
+        localStorage.clear();
+    }
 
     const createChatMessage = async (userName: string, chatText: string): Promise<void> => {
         const chatItem: ChatItem = {
@@ -88,7 +93,15 @@ export default function ChatApp() {
                     <h2>ChatPage</h2>
                 </div>
                 <div>
-                    <Link to="/user/loginpage" className="link">Log In</Link>
+                    {session ?
+                        (<Link to="user/loginpage" className='link'>Log in</Link>) :
+                        (<Link
+                            to="/"
+                            onClick={() => {
+                                logOut();
+                                setSession(true);
+                            }}
+                            className='link'>Log out</Link>)}
                 </div>
             </header>
             <section className="chat-section">

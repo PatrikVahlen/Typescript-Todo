@@ -60,13 +60,13 @@ chatController.get("/user", (req, res) => {
 chatController.post('/register', async (req: Request<User>, res: Response) => {
     const { name, password } = req.body;
     if (!name || !password || typeof name !== "string" || typeof password !== "string") {
-        res.send("Improper Values");
+        res.sendStatus(404);
         return;
     }
 
     UserModel.findOne({ name }, async (err: Error, doc: User) => {
         if (err) throw err;
-        if (doc) res.send("User Already Exists");
+        if (doc) res.sendStatus(404);
         if (!doc) {
             const hashpassword = await bcrypt.hash(password, 10);
             const newUser = new UserModel({
@@ -74,7 +74,7 @@ chatController.post('/register', async (req: Request<User>, res: Response) => {
                 password: hashpassword
             });
             await newUser.save();
-            return newUser;
+            res.sendStatus(200);
         }
     })
 });

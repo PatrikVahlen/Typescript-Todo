@@ -22,7 +22,7 @@ export default function LogIn() {
             const token = response.data.token;
             localStorage.setItem("backend3", token)
             console.log("Success Log In")
-            // navigate("/")
+            navigate("/")
         } catch (err) {
             console.log("Fel")
             if (err) {
