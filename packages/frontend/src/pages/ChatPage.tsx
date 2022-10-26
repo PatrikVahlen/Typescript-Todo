@@ -8,11 +8,6 @@ export default function ChatApp() {
 
     axios.defaults.baseURL = process.env.REACT_APP_CHAT_API || "http://localhost:3001"
 
-    const fetchChats = async (): Promise<ChatItem[]> => {
-        const response = await axios.get<ChatItem[]>("/chat")
-        return response.data
-    }
-
     const [chatText, setChatText] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
     const [session, setSession] = useState<boolean>(true);
@@ -21,6 +16,22 @@ export default function ChatApp() {
 
     function logOut() {
         localStorage.clear();
+    }
+
+    const fetchChats = async (): Promise<ChatItem[]> => {
+        const response = await axios.get<ChatItem[]>("/chat")
+        return response.data
+    }
+
+    const fetchUser = async (): Promise<void> => {
+        const token = localStorage.getItem('backend3')
+        try {
+            const response = await axios.post<any>("/chat/user", { token: token })
+            console.log(response.data.payload.name);
+            setSession(false)
+        } catch (err) {
+            console.log("Something went wrong fetching user", err)
+        }
     }
 
     const createChatMessage = async (userName: string, chatText: string): Promise<void> => {
@@ -42,6 +53,7 @@ export default function ChatApp() {
 
     useEffect(() => {
         const interval = setInterval(() => {
+            // fetchUser()
             fetchChats()
                 .then(setChats)
                 .catch((error) => {
@@ -87,7 +99,7 @@ export default function ChatApp() {
         <div className="App">
             <header className='header'>
                 <div>
-
+                    <button onClick={(e) => fetchUser()}>Fetch User</button>
                 </div>
                 <div>
                     <h2>ChatPage</h2>
