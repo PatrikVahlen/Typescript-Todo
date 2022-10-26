@@ -11,6 +11,7 @@ export default function ChatApp() {
     const [chatText, setChatText] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
     const [name, setName] = useState<string>('');
+    const [id, setId] = useState<string>('');
     const [session, setSession] = useState<boolean>(true);
     const [chats, setChats] = useState<ChatItem[]>([]);
     const [error, setError] = useState<string | undefined>();
@@ -28,8 +29,9 @@ export default function ChatApp() {
         const token = localStorage.getItem('backend3')
         try {
             const response = await axios.post<any>("/chat/user", { token: token })
-            console.log(response.data.payload.name);
+            console.log(response.data.payload.id);
             setName(response.data.payload.name)
+            setId(response.data.payload.id)
             setSession(false)
         } catch (err) {
             console.log("Something went wrong fetching user", err)
@@ -38,6 +40,7 @@ export default function ChatApp() {
 
     const createChatMessage = async (userName: string, chatText: string): Promise<void> => {
         const chatItem: ChatItem = {
+            user: id,
             name: userName,
             text: chatText,
             timeStamp: new Date()
@@ -72,21 +75,21 @@ export default function ChatApp() {
             return (<div>{error}</div>)
         } else if (chats) {
             return (<div>{
-                chats.map((item) => {
+                chats.map((item, index) => {
                     let truncatedDate = item.timeStamp.toString().split("T");
                     let truncatedTime = truncatedDate[1].split(".");
                     return (
-                        <div>
+                        <div key={index}>
                             <div className='chatTimeStampText'>
-                                <p key={item.id}>{truncatedDate[0]} {truncatedTime[0]}</p>
+                                <p>{truncatedDate[0]} {truncatedTime[0]}</p>
                             </div>
                             <div className='chatCard'>
                                 <div className='chatMessageText'>
-                                    <p key={item.id}>{item.text}</p>
+                                    <p>{item.text}</p>
                                 </div>
                             </div>
                             <div className='chatNameText'>
-                                <p key={item.id}>{item.name}</p>
+                                <p>{item.name}</p>
                             </div>
                         </div>
                     )
@@ -129,16 +132,6 @@ export default function ChatApp() {
                     <></> :
                     <div className="chatFrame">
                         <div>
-                            <label>Name: </label>
-                            <input
-                                placeholder='Enter your name'
-                                className='chatInput'
-                                type="text"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                                required />
-                        </div>
-                        <div>
                             <label>Message: </label>
                             <input
                                 placeholder='Enter your message'
@@ -149,7 +142,7 @@ export default function ChatApp() {
                                 required />
                         </div>
                         <div className='buttonBox'>
-                            <button className="sendButton" onClick={(e) => createChatMessage(userName, chatText)}>Send</button>
+                            <button className="sendButton" onClick={(e) => createChatMessage(name, chatText)}>Send</button>
                         </div>
                     </div>
                 }
