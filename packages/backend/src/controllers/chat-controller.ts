@@ -53,8 +53,16 @@ chatController.post("/login", async (req: Request<User>, res: Response) => {
     }
 });
 
-chatController.get("/user", (req, res) => {
-    res.send(req.user);
+chatController.post("/user", async (req: Request, res: Response) => {
+    const { token } = req.body;
+    try {
+        const verify = jwt.verify(token, JWT_SECRET);
+        console.log(verify);
+        res.send(verify);
+    } catch (error) {
+        console.log(JSON.stringify(error), "error");
+        res.sendStatus(403);
+    }
 });
 
 chatController.post('/register', async (req: Request<User>, res: Response) => {
