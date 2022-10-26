@@ -74,7 +74,7 @@ chatController.post('/register', async (req: Request<User>, res: Response) => {
                 password: hashpassword
             });
             await newUser.save();
-            res.send("Success")
+            return newUser;
         }
     })
 });

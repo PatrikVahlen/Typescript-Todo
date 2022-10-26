@@ -6,7 +6,7 @@ import "../App.css"
 
 export default function Register() {
 
-    axios.defaults.baseURL = process.env.REACT_APP_TODO_API || "http://localhost:3000"
+    axios.defaults.baseURL = process.env.REACT_APP_CHAT_API || "http://localhost:3001"
 
     const [userName, setUserName] = useState<string>("")
     const [userPassword, setUserPassword] = useState<string>("")
@@ -21,6 +21,7 @@ export default function Register() {
         }
         try {
             const response = await axios.post<User>("/chat/register", user)
+            console.log("Success")
             navigate("/user/loginpage")
         } catch (err) {
             if (err) {
