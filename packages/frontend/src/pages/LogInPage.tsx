@@ -1,3 +1,5 @@
+import { User } from "@my-todo-app/shared";
+import axios from "axios";
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 
@@ -5,6 +7,26 @@ export default function LogIn() {
 
     const [userName, setUserName] = useState<string>("")
     const [userPassword, setUserPassword] = useState<string>("");
+    const [error, setError] = useState<string>("");
+
+    const navigate = useNavigate();
+
+    const logInUser = async (name: string, password: string): Promise<void> => {
+        const user: User = {
+            name: name,
+            password: password
+        }
+        try {
+            const response = await axios.post<any>("/auth/login", user)
+            const token = response.data.access_token;
+            localStorage.setItem("backend3", token)
+            navigate("/")
+        } catch (err) {
+            if (err) {
+                setError("userEmail or password is wrong")
+            }
+        }
+    }
 
     return (
         <>
@@ -42,7 +64,7 @@ export default function LogIn() {
                             />
                         </div>
                         <div className='buttonBox'>
-                            <button className="buyButton" onClick={(e) => console.log(userName, userPassword)}>Log In</button>
+                            <button className="buyButton" onClick={(e) => logInUser(userName, userPassword)}>Log In</button>
                         </div>
                         <div>
                             {/* {error} */}
