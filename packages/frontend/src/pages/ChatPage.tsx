@@ -10,6 +10,7 @@ export default function ChatApp() {
 
     const [chatText, setChatText] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
+    const [name, setName] = useState<string>('');
     const [session, setSession] = useState<boolean>(true);
     const [chats, setChats] = useState<ChatItem[]>([]);
     const [error, setError] = useState<string | undefined>();
@@ -28,6 +29,7 @@ export default function ChatApp() {
         try {
             const response = await axios.post<any>("/chat/user", { token: token })
             console.log(response.data.payload.name);
+            setName(response.data.payload.name)
             setSession(false)
         } catch (err) {
             console.log("Something went wrong fetching user", err)
@@ -52,8 +54,8 @@ export default function ChatApp() {
     }
 
     useEffect(() => {
+        fetchUser()
         const interval = setInterval(() => {
-            // fetchUser()
             fetchChats()
                 .then(setChats)
                 .catch((error) => {
@@ -99,7 +101,10 @@ export default function ChatApp() {
         <div className="App">
             <header className='header'>
                 <div>
-                    <button onClick={(e) => fetchUser()}>Fetch User</button>
+                    {session ?
+                        <p></p> :
+                        <p>Welcome: {name}</p>
+                    }
                 </div>
                 <div>
                     <h2>ChatPage</h2>
@@ -120,33 +125,35 @@ export default function ChatApp() {
                 {output()}
             </section>
             <footer className='chat-footer'>
-                <div className="chatFrame">
-                    <div>
-                        <label>Name: </label>
-                        <input
-                            placeholder='Enter your name'
-                            className='chatInput'
-                            type="text"
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
-                            required />
+                {session ?
+                    <></> :
+                    <div className="chatFrame">
+                        <div>
+                            <label>Name: </label>
+                            <input
+                                placeholder='Enter your name'
+                                className='chatInput'
+                                type="text"
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
+                                required />
+                        </div>
+                        <div>
+                            <label>Message: </label>
+                            <input
+                                placeholder='Enter your message'
+                                className='chatInput'
+                                type="text"
+                                value={chatText}
+                                onChange={(e) => setChatText(e.target.value)}
+                                required />
+                        </div>
+                        <div className='buttonBox'>
+                            <button className="sendButton" onClick={(e) => createChatMessage(userName, chatText)}>Send</button>
+                        </div>
                     </div>
-                    <div>
-                        <label>Message: </label>
-                        <input
-                            placeholder='Enter your message'
-                            className='chatInput'
-                            type="text"
-                            value={chatText}
-                            onChange={(e) => setChatText(e.target.value)}
-                            required />
-                    </div>
-                    <div className='buttonBox'>
-                        <button className="sendButton" onClick={(e) => createChatMessage(userName, chatText)}>Send</button>
-                    </div>
-                </div>
+                }
             </footer>
-
         </div >
     );
 
