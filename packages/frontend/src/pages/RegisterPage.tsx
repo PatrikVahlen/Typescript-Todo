@@ -12,8 +12,6 @@ export default function Register() {
     const [userPassword, setUserPassword] = useState<string>("")
     const [error, setError] = useState<string>("");
 
-
-
     const navigate = useNavigate();
 
     const createUser = async (name: string, password: string): Promise<void> => {
@@ -22,12 +20,12 @@ export default function Register() {
             password: password
         }
         try {
-            const response = await axios.post<User>("/user", user)
-            navigate("/user/login")
+            const response = await axios.post<User>("/chat/register", user)
+            navigate("/user/loginpage")
         } catch (err) {
             if (err) {
                 console.log(err)
-                setError("Email and password should have 5 characters or Email already exists")
+                setError("Name already exists")
             }
         }
     }
