@@ -1,4 +1,4 @@
-import ChatItem from "@my-todo-app/shared"
+import { ChatItem } from "@my-todo-app/shared"
 import { connect, model, Schema } from "mongoose"
 
 const ChatSchema = new Schema({
