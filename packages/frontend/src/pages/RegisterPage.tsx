@@ -36,7 +36,7 @@ export default function Register() {
         <div className="App">
             <header className='header'>
                 <div>
-                    <Link to="/" className="link">Back to StartPage</Link>
+                    <Link to="/" className="link">Back to ChatPage</Link>
                 </div>
                 <div>
                     <h2>RegisterPage</h2>
