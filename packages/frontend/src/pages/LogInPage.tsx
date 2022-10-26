@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function LogIn() {
 
-    const [userEmail, setuserEmail] = useState<string>("")
+    const [userName, setUserName] = useState<string>("")
     const [userPassword, setUserPassword] = useState<string>("");
 
     return (
@@ -16,8 +16,8 @@ export default function LogIn() {
                             className="inputField"
                             type="text"
                             placeholder="Email"
-                            value={userEmail}
-                            onChange={(e) => setuserEmail(e.target.value)}
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
                         />
                     </div>
                     <div>
@@ -31,7 +31,7 @@ export default function LogIn() {
                         />
                     </div>
                     <div className='buttonBox'>
-                        <button className="buyButton" onClick={(e) => console.log(userEmail, userPassword)}>Log In</button>
+                        <button className="buyButton" onClick={(e) => console.log(userName, userPassword)}>Log In</button>
                     </div>
                     <div>
                         {/* {error} */}
