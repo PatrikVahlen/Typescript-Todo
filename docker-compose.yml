@@ -6,14 +6,14 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - MONGODB_URL=mongodb://db:27017/mytodos
+      - MONGODB_URL=mongodb://db:27017/myChats
       - PORT = 4000
 
   frontend:
     build:
       dockerfile: Dockerfile.frontend
       args:
-        APP_TODO_API: http://localhost:4000
+        APP_CHAT_API: http://localhost:4000
     ports:
       - "3000:3000"
 
@@ -21,6 +21,6 @@ services:
     image: mongo:6.0.2
     ports:
       - "27017:27017"
-    container_name: db
+    container_name: dbchat
     volumes:
       - /data/db

@@ -3,7 +3,7 @@ import ChatItem from "@my-todo-app/shared"
 import './App.css';
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_TODO_API || "http://localhost:3001"
+axios.defaults.baseURL = process.env.REACT_APP_CHAT_API || "http://localhost:3001"
 
 const fetchChats = async (): Promise<ChatItem[]> => {
   const response = await axios.get<ChatItem[]>("/chat")
