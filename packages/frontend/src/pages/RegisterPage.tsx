@@ -8,8 +8,8 @@ export default function Register() {
 
     axios.defaults.baseURL = process.env.REACT_APP_TODO_API || "http://localhost:3000"
 
-    const [userEmail, setuserEmail] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
+    const [userName, setUserName] = useState<string>("")
+    const [userPassword, setUserPassword] = useState<string>("")
     const [error, setError] = useState<string>("");
 
 
@@ -53,8 +53,8 @@ export default function Register() {
                                 className="inputField"
                                 type="text"
                                 placeholder="Email"
-                                value={userEmail}
-                                onChange={(e) => setuserEmail(e.target.value)} />
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)} />
                         </div>
                         <div>
                             <label>Password: </label>
@@ -62,11 +62,11 @@ export default function Register() {
                                 className="inputField"
                                 type="text"
                                 placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)} />
+                                value={userPassword}
+                                onChange={(e) => setUserPassword(e.target.value)} />
                         </div>
                         <div className="buttonBox">
-                            <button className='buyButton' onClick={(e) => createUser(userEmail, password)}>Create User</button>
+                            <button className='buyButton' onClick={(e) => createUser(userName, userPassword)}>Create User</button>
                         </div>
                         <div>
                             {error}
