@@ -34,23 +34,23 @@ chatController.post('/', async (req: Request<ChatItem>, res: Response<ChatItem[]
     }
 });
 
-const JWT_SECRET: string = process.env.JWT || "asjdasd";
+const JWT_SECRET: string = process.env.JWT || "Example";
 
 chatController.post("/login", async (req: Request<User>, res: Response) => {
     const { name, password } = req.body;
     const result = await UserModel.findOne({ name: name })
     const hashedpassword = result!.password;
-    console.log("Password", hashedpassword);
     const compare = bcrypt.compareSync(password, hashedpassword);
     if (compare) {
-        console.log("Här")
+        console.log("Password is a match")
         const payload = { id: result!._id, name: result!.name }
         const token = jwt.sign({ payload }, JWT_SECRET, { expiresIn: '2h' })
-        console.log(token);
+        console.log(token)
+        res.send({ token: token });
     } else {
-        console.log("Stämmer inte")
+        res.sendStatus(403)
+        console.log("Password is not a match")
     }
-    console.log('Hashed password matches secret password:', compare);
 });
 
 chatController.get("/user", (req, res) => {

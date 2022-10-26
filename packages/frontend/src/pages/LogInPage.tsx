@@ -17,13 +17,16 @@ export default function LogIn() {
             password: password
         }
         try {
-            const response = await axios.post<any>("/auth/login", user)
-            const token = response.data.access_token;
+            const response = await axios.post<any>("/chat/login", user)
+            console.log(response.data.token)
+            const token = response.data.token;
             localStorage.setItem("backend3", token)
-            navigate("/")
+            console.log("Success Log In")
+            // navigate("/")
         } catch (err) {
+            console.log("Fel")
             if (err) {
-                setError("userEmail or password is wrong")
+                setError("Name or password is wrong")
             }
         }
     }
@@ -67,7 +70,7 @@ export default function LogIn() {
                             <button className="buyButton" onClick={(e) => logInUser(userName, userPassword)}>Log In</button>
                         </div>
                         <div>
-                            {/* {error} */}
+                            {error}
                         </div>
                     </div>
                     <Link to="/user/registerpage" className="linkRegister">Register a new user</Link>
