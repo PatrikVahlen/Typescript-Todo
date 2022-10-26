@@ -8,9 +8,6 @@ import passport from "passport";
 import passportLocal from "passport-local"
 import mongoose from "mongoose";
 
-
-
-
 const chatController = express.Router()
 
 chatController.get('/', async (req: Request, res: Response<ChatItem[]>) => {

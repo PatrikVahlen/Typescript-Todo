@@ -1,8 +1,9 @@
 import { ChatItem, User } from "@my-todo-app/shared"
-import { connect, model, Schema } from "mongoose"
+import mongoose, { connect, model, Schema } from "mongoose"
 
 
 const ChatSchema = new Schema({
+    user: { type: mongoose.Types.ObjectId, ref: "UserItem" },
     name: String,
     text: String,
     timeStamp: Date
@@ -31,6 +32,7 @@ export const loadChatItem = async (chatId: string): Promise<ChatItem | null> => 
 
 export const saveChatItem = async (chatItem: ChatItem): Promise<void> => {
     const newModel = new ChatModel(chatItem)
+    console.log(chatItem)
     newModel.save()
 }
 

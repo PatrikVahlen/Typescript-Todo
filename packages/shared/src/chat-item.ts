@@ -1,5 +1,5 @@
 export default interface ChatItem {
-    id?: string,
+    user?: string,
     name: string,
     text: string,
     timeStamp: Date,
