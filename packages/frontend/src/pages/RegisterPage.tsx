@@ -11,6 +11,7 @@ export default function Register() {
     const [userName, setUserName] = useState<string>("")
     const [userPassword, setUserPassword] = useState<string>("")
     const [error, setError] = useState<string>("");
+    const [session, setSession] = useState<boolean>(true);
 
     const navigate = useNavigate();
 
@@ -21,12 +22,14 @@ export default function Register() {
         }
         try {
             const response = await axios.post<User>("/chat/register", user)
+            console.log(response)
             console.log("Success")
             navigate("/user/loginpage")
         } catch (err) {
             if (err) {
                 console.log(err)
-                setError("Name already exists")
+                console.log()
+                setError("Name already exists or invalid entry")
             }
         }
     }
