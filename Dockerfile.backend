@@ -14,4 +14,4 @@ RUN npm run buildBackend
 
 EXPOSE 4000
 
-CMD ["node", "packages/backend/dist/main.js"]
+CMD ["node", "packages/backend/dist/app.js"]

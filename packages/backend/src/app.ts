@@ -9,12 +9,12 @@ dotenv.config();
 const app: Application = express()
 app.use(cors())
 app.use(json())
-const mongoURL: string = process.env.MONGO_URL || "mongodb://localhost:27017/mytodos"
-const port: number = parseInt(process.env.SERVER_PORT || "3001")
+const mongoURL: string = process.env.MONGODB_URL || "mongodb://localhost:27017/myChats"
+const port: number = parseInt(process.env.PORT || "3000")
 
 app.use("/chat", chatController)
 
-app.listen(port, async function () {
+app.listen(4000, async function () {
     await setupMongoDB(mongoURL)
-    console.log(`App is listening on port ${port} !`)
+    console.log(`App is listening on port ${4000} !`)
 })
