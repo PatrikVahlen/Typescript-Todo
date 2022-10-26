@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import ChatPage from './pages/ChatPage';
+import LogInPage from './pages/LogInPage';
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <header>
         <Routes>
           <Route path="/" element={<ChatPage />} />
+          <Route path="/loginpage" element={<LogInPage />} />
         </Routes>
       </header>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ChatItem from "@my-todo-app/shared"
 import '../App.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function ChatApp() {
 
@@ -79,9 +80,15 @@ export default function ChatApp() {
 
     return (
         <div className="App">
-            <header>
-                <div className='chat-header'>
-                    <h2>Chat-App</h2>
+            <header className='header'>
+                <div>
+
+                </div>
+                <div>
+                    <h2>ChatPage</h2>
+                </div>
+                <div>
+                    <Link to="/" className="link">Log In</Link>
                 </div>
             </header>
             <section className="chat-section">
