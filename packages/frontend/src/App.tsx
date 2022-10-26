@@ -63,9 +63,9 @@ function App() {
                 <div className='chatMessageText'>
                   <p key={item.id}>{item.text}</p>
                 </div>
-                <div className='chatNameText'>
-                  <p key={item.id}>{item.name}</p>
-                </div>
+              </div>
+              <div className='chatNameText'>
+                <p key={item.id}>{item.name}</p>
               </div>
             </div>
           )
@@ -101,7 +101,7 @@ function App() {
           <div>
             <label>Message: </label>
             <input
-              placeholder='Ener your message'
+              placeholder='Enter your message'
               className='chatInput'
               type="text"
               value={chatText}
