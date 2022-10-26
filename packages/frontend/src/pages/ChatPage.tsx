@@ -88,7 +88,7 @@ export default function ChatApp() {
                     <h2>ChatPage</h2>
                 </div>
                 <div>
-                    <Link to="/loginpage" className="link">Log In</Link>
+                    <Link to="/user/loginpage" className="link">Log In</Link>
                 </div>
             </header>
             <section className="chat-section">
