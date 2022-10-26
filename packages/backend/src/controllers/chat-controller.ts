@@ -1,4 +1,4 @@
-import ChatItem from "@my-todo-app/shared";
+import { ChatItem } from "@my-todo-app/shared";
 import express, { Router, Request, Response } from "express";
 import { loadItemById, loadChats, saveChat } from "../services/chat-services";
 

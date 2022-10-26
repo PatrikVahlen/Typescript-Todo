@@ -1,4 +1,4 @@
-import ChatItem from "@my-todo-app/shared"
+import { ChatItem } from "@my-todo-app/shared"
 import { loadAllChatItems, loadChatItem, saveChatItem } from "../models/chat-repository"
 
 export const saveChat = async (chatItem: ChatItem): Promise<ChatItem[]> => {

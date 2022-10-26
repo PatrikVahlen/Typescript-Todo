@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ChatItem from "@my-todo-app/shared"
+import { ChatItem } from "@my-todo-app/shared"
 import '../App.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -88,7 +88,7 @@ export default function ChatApp() {
                     <h2>ChatPage</h2>
                 </div>
                 <div>
-                    <Link to="/" className="link">Log In</Link>
+                    <Link to="/loginpage" className="link">Log In</Link>
                 </div>
             </header>
             <section className="chat-section">
