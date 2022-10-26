@@ -11,7 +11,7 @@ export default function Register() {
     const [userName, setUserName] = useState<string>("")
     const [userPassword, setUserPassword] = useState<string>("")
     const [error, setError] = useState<string>("");
-    const [session, setSession] = useState<boolean>(true);
+
 
     const navigate = useNavigate();
 
