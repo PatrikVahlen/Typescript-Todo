@@ -124,7 +124,7 @@ export default function ChatApp() {
                             className='link'>Log out</Link>)}
                 </div>
             </header>
-            <section className="chat-section">
+            <section className="chat-section-left">
                 {output()}
             </section>
             <footer className='chat-footer'>
