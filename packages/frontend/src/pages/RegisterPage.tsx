@@ -68,7 +68,7 @@ export default function Register() {
                                 onChange={(e) => setUserPassword(e.target.value)} />
                         </div>
                         <div className="buttonBox">
-                            <button className='buyButton' onClick={(e) => createUser(userName, userPassword)}>Create User</button>
+                            <button className='Button' onClick={(e) => createUser(userName, userPassword)}>Create User</button>
                         </div>
                         <div>
                             {error}

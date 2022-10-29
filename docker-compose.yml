@@ -8,6 +8,7 @@ services:
     environment:
       - MONGODB_URL=mongodb://db:27017/myChats
       - PORT = 4000
+      - JWT = "asdhsadkhaskjdhaskhd347923649"
 
   frontend:
     build:
