@@ -9,7 +9,6 @@ export default function ChatApp() {
     axios.defaults.baseURL = process.env.REACT_APP_CHAT_API || "http://localhost:3001"
 
     const [chatText, setChatText] = useState<string>('');
-    const [userName, setUserName] = useState<string>('');
     const [name, setName] = useState<string>('');
     const [id, setId] = useState<string>('');
     const [session, setSession] = useState<boolean>(true);
@@ -49,7 +48,6 @@ export default function ChatApp() {
             const response = await axios.post<ChatItem[]>('/chat', chatItem)
             setChats(response.data)
             setChatText("")
-            setUserName("")
         } catch (err) {
             setChats([])
             setError('Something went wrong when fetching posts...')
@@ -78,21 +76,45 @@ export default function ChatApp() {
                 chats.map((item, index) => {
                     let truncatedDate = item.timeStamp.toString().split("T");
                     let truncatedTime = truncatedDate[1].split(".");
-                    return (
-                        <div key={index}>
-                            <div className='chatTimeStampText'>
-                                <p>{truncatedDate[0]} {truncatedTime[0]}</p>
-                            </div>
-                            <div className='chatCard'>
-                                <div className='chatMessageText'>
-                                    <p>{item.text}</p>
+                    if (item.name == name) {
+                        console.log("Samma")
+                        return (
+                            <div className='chat-box-right'>
+                                <div key={index} className="chat-section-right">
+                                    <div className='chatTimeStampText'>
+                                        <p>{truncatedDate[0]} {truncatedTime[0]}</p>
+                                    </div>
+                                    <div className='chatCard-right'>
+                                        <div className='chatMessageText'>
+                                            <p>{item.text}</p>
+                                        </div>
+                                    </div>
+                                    <div className='chatNameText'>
+                                        <p>{item.name}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className='chatNameText'>
-                                <p>{item.name}</p>
+                        )
+                    } else {
+                        console.log("Inte samma")
+                        return (
+                            <div className='chat-box-left'>
+                                <div key={index} className="chat-section-left">
+                                    <div className='chatTimeStampText'>
+                                        <p>{truncatedDate[0]} {truncatedTime[0]}</p>
+                                    </div>
+                                    <div className='chatCard-left'>
+                                        <div className='chatMessageText'>
+                                            <p>{item.text}</p>
+                                        </div>
+                                    </div>
+                                    <div className='chatNameText'>
+                                        <p>{item.name}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    )
+                        )
+                    }
                 })
             }</div>)
         } else {
@@ -111,6 +133,7 @@ export default function ChatApp() {
                 </div>
                 <div>
                     <h2>ChatPage</h2>
+                    {session ? <p>You need to log in to enter chat</p> : <></>}
                 </div>
                 <div>
                     {session ?
@@ -120,11 +143,12 @@ export default function ChatApp() {
                             onClick={() => {
                                 logOut();
                                 setSession(true);
+                                setName("");
                             }}
                             className='link'>Log out</Link>)}
                 </div>
             </header>
-            <section className="chat-section-left">
+            <section >
                 {output()}
             </section>
             <footer className='chat-footer'>
@@ -142,7 +166,7 @@ export default function ChatApp() {
                                 required />
                         </div>
                         <div className='buttonBox'>
-                            <button className="sendButton" onClick={(e) => createChatMessage(name, chatText)}>Send</button>
+                            <button className="Button" onClick={(e) => createChatMessage(name, chatText)}>Send</button>
                         </div>
                     </div>
                 }

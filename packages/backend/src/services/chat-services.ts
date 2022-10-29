@@ -1,5 +1,5 @@
 import { ChatItem, User } from "@my-todo-app/shared"
-import { loadAllChatItems, loadChatItem, saveChatItem } from "../models/chat-repository"
+import { loadAllChatItems, loadChatItem, saveChatItem, saveUserItem, loginUserItem, verifyTokenItem, UserModel } from "../models/chat-repository"
 
 export const saveChat = async (chatItem: ChatItem): Promise<ChatItem[]> => {
     if (!chatItem.text || chatItem.text == "") {
@@ -13,9 +13,17 @@ export const saveChat = async (chatItem: ChatItem): Promise<ChatItem[]> => {
     return await loadAllChatItems()
 }
 
-// export const saveUser = async (userItem: User): Promise<User> => {
-//     await saveUserItem(userItem)
-// }
+export const saveUser = async (userItem: User): Promise<void> => {
+    await saveUserItem(userItem)
+}
+
+export const loginUser = async (userItem: User): Promise<void> => {
+    return await loginUserItem(userItem)
+}
+
+export const verifyToken = async (tokenItem: any): Promise<void> => {
+    return await verifyTokenItem(tokenItem)
+}
 
 export const loadChats = async (): Promise<ChatItem[]> => {
     return await loadAllChatItems();
