@@ -28,12 +28,12 @@ export default function ChatApp() {
         const token = localStorage.getItem('backend3')
         try {
             const response = await axios.post<any>("/chat/user", { token: token })
-            console.log(response.data.payload.id);
+
             setName(response.data.payload.name)
             setId(response.data.payload.id)
             setSession(false)
         } catch (err) {
-            console.log("Something went wrong fetching user", err)
+
         }
     }
 
@@ -77,7 +77,7 @@ export default function ChatApp() {
                     let truncatedDate = item.timeStamp.toString().split("T");
                     let truncatedTime = truncatedDate[1].split(".");
                     if (item.name == name) {
-                        console.log("Samma")
+
                         return (
                             <div className='chat-box-right'>
                                 <div key={index} className="chat-section-right">
@@ -96,7 +96,7 @@ export default function ChatApp() {
                             </div>
                         )
                     } else {
-                        console.log("Inte samma")
+
                         return (
                             <div className='chat-box-left'>
                                 <div key={index} className="chat-section-left">

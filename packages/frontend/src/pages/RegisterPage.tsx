@@ -22,13 +22,9 @@ export default function Register() {
         }
         try {
             const response = await axios.post<User>("/chat/register", user)
-            console.log(response)
-            console.log("Success")
             navigate("/user/loginpage")
         } catch (err) {
             if (err) {
-                console.log(err)
-                console.log()
                 setError("Name already exists or invalid entry")
             }
         }

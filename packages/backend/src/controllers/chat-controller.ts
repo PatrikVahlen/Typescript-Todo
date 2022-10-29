@@ -48,7 +48,6 @@ chatController.post('/register', async (req: Request<User>, res: Response) => {
 chatController.post("/login", async (req: Request<User>, res: Response) => {
 
     const { name, password } = req.body;
-    console.log(req.body)
     if (!name || !password || typeof name !== "string" || typeof password !== "string") {
         res.sendStatus(404);
         return;

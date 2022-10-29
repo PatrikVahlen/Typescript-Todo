@@ -34,7 +34,6 @@ export const loadChatItem = async (chatId: string): Promise<ChatItem | null> => 
 
 export const saveChatItem = async (chatItem: ChatItem): Promise<void> => {
     const newModel = new ChatModel(chatItem)
-    console.log(chatItem)
     newModel.save()
 }
 
@@ -57,10 +56,8 @@ export const loginUserItem = async (userItem: User): Promise<any> => {
     const hashedpassword = result!.password;
     const compare = bcrypt.compareSync(password, hashedpassword);
     if (compare) {
-        console.log("Password is a match")
         const payload = { id: result!._id, name: result!.name }
         const token = jwt.sign({ payload }, JWT_SECRET, { expiresIn: '2h' })
-        console.log(token)
         return { token: token };
     } else {
         return Error("Invalid text on chat item!")
@@ -71,9 +68,7 @@ export const verifyTokenItem = async (tokenItem: any): Promise<any> => {
     const { token } = tokenItem;
     try {
         const verify = jwt.verify(token, JWT_SECRET);
-        console.log(verify);
         return (verify);
     } catch (error) {
-        console.log(JSON.stringify(error), "error");
     }
 }
