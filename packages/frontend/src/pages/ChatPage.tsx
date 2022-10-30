@@ -12,6 +12,7 @@ export default function ChatApp() {
     const [name, setName] = useState<string>('');
     const [id, setId] = useState<string>('');
     const [session, setSession] = useState<boolean>(true);
+    const [disableButton, setdisableButton] = useState<boolean>(true);
     const [chats, setChats] = useState<ChatItem[]>([]);
     const [error, setError] = useState<string | undefined>();
 
@@ -38,6 +39,10 @@ export default function ChatApp() {
     }
 
     const createChatMessage = async (userName: string, chatText: string): Promise<void> => {
+        if (chatText.length < 1 || chatText.trim().length < 1) {
+            return;
+        }
+
         const chatItem: ChatItem = {
             user: id,
             name: userName,
@@ -47,7 +52,9 @@ export default function ChatApp() {
         try {
             const response = await axios.post<ChatItem[]>('/chat', chatItem)
             setChats(response.data)
+            console.log(chatText.trim())
             setChatText("")
+
         } catch (err) {
             setChats([])
             setError('Something went wrong when fetching posts...')
@@ -67,6 +74,7 @@ export default function ChatApp() {
 
         return () => clearInterval(interval)
     }, []);
+
 
     const output = () => {
         if (error) {
